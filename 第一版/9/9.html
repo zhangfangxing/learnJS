@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script type="text/javascript">
+        var myadd=(function(){
+            var number = 0;
+            return function (){
+                return number += 1;
+            }
+        })();
+        function aaa(){
+            document.getElementById("me").innerHTML = myadd();
+        }
+    </script>
+</head>
+<body>
+    <p id="me"></p>
+    <input id="btn" type="button" value="add" onclick="aaa()"/>
+</body>
+</html>
