@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script type="text/javascript">
+        onload = function(){
+            getTime();
+        }
+
+        function changeNum(num){
+            return (num<10 && num >0)?"0"+num:num;
+        };
+
+        setInterval(getTime,1000);
+        
+        function getTime(){
+            var nowDate = new Date();
+            var nowHours = changeNum(nowDate.getHours())+"";//小时
+            var nowMinutes = changeNum(nowDate.getMinutes()+"");//分
+            var nowSeconds = changeNum(nowDate.getSeconds()+"");//秒
+            var allDate = nowHours +":"+ nowMinutes +":"+nowSeconds;
+           
+            var imgs = document.getElementById("div1").getElementsByTagName("img");
+            for(var i=0; i<imgs.length;i++){
+                if(i==2 || i==5){
+                    continue;
+                }
+                if(allDate.charAt(i) == null || allDate.charAt(i) == ''){
+                    imgs[i].src = "../img/"+0+".png";
+                } else {
+                    imgs[i].src = "../img/"+allDate.charAt(i)+".png";
+                }
+                
+                console.log(allDate);
+            }
+        }
+    </script>
+    <title>Document</title>
+</head>
+<body>
+    <div id="div1">
+        <img src="../img/0.png">
+        <img src="../img/0.png">
+        <img src="../img/colon.png">
+        <img src="../img/0.png">
+        <img src="../img/0.png">
+        <img src="../img/colon.png">
+        <img src="../img/0.png">
+        <img src="../img/0.png">
+    </div>
+</body>
+</html>
