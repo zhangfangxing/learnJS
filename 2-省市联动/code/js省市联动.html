@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>js 省市联动</title>
+
+
+    <script>
+    var arr=new Array(4);
+    arr[0]=["-请选择-"];
+    arr[1]=["太原市","大同市","临汾市","吕梁市","阳泉市"];
+    arr[2]=["朝阳区","海淀区","通州区","东城区","西城区","丰台区"];
+    arr[3]=["宁波市","温州市","杭州市","绍兴市","余杭市"];
+    arr[4]=["青岛市","烟台市","济南市","日照市","聊城市"];
+
+
+	function changeCity(val){
+		//获取城市下拉框节点
+		var selCity=document.getElementById("city");
+		//每次添加之前，判断city里面是否有option属性，有就删除
+		var cityNodes=selCity.getElementsByTagName("option");
+		for(var x=0;x<cityNodes.length;x++){
+			selCity.removeChild(cityNodes[x]);
+			x--;	
+		}
+		//根据传过来的value值去数组中找相匹配的城市
+		for(var y=0;y<arr[val].length;y++){
+			//创建option标签
+			var optionNode=document.createElement("option");
+			//设置option内容为城市名
+			optionNode.innerHTML=arr[val][y];
+			//添加到城市下拉框节点中
+			selCity.appendChild(optionNode);
+		}
+    }
+    </script>
+</head>
+<body>
+    <!--改变事件:onchange 并将当前标签的value值作为参数:this.value-->
+    <select id="province" onchange="changeCity(this.value)"> 
+        <option selected="selected" value="0">-请选择-</option>
+        <option value="1">山西</option>
+        <option value="2">北京</option>
+        <option value="3">浙江</option>
+        <option value="4">山东</option>
+    </select>
+    <select id="city">
+        <option>-请选择-</option>
+    </select>
+</body>
+</html>
