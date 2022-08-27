@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        var allPrice = 0;//总计金额
+
+        window.onload = function(){
+            var ulList = document.getElementById("ulList");
+            var inputs = ulList.getElementsByTagName("input");
+            for(var i=0;i<inputs.length;i++){
+                inputs[i].onclick = action;
+            }
+        }
+        function action(){
+            
+            // console.log(this.parentNode);
+            // 因为这里从0开始，所以获取第三个标签的时候，需要输入2.
+            // console.log(this.parentNode.children[2].innerHTML);
+
+
+            //对个数的操作 start
+            //获得一下个数，也就是说获得li之中的strong标签。
+            var strongVal = this.parentNode.children[2].innerHTML;//个数
+            if(this.value == "+"){
+                strongVal++;//如果是加号的话，让个数增加1
+                allPrice = allPrice + Number(this.parentNode.children[4].innerHTML.replace("元",""));
+            } else {
+                strongVal--;
+                if(strongVal <0){
+                    strongVal = 0;
+                } else {
+                    allPrice = allPrice - Number(this.parentNode.children[4].innerHTML.replace("元",""));
+                }
+            }
+            //最后将strongVal 赋予回去。就可以更改它的个数了。
+            this.parentNode.children[2].innerHTML = strongVal;
+            //对个数的操作 end
+
+            //对小计的操作start
+            //获得单价
+            var oCite = this.parentNode.getElementsByTagName("cite")[1].innerText.replace("元","");//单价
+            this.parentNode.getElementsByTagName("cite")[2].innerHTML = (oCite * strongVal) +"元";
+            //对小计的操作end
+
+
+            //对合计的操作 start
+            var returnCite = document.getElementById("returnCite");
+            returnCite.innerHTML = allPrice + "元";
+            //对合计的操作 end
+        }
+    </script>
+</head>
+<body>
+    <ul id="ulList">
+        <li>
+            商品:<cite>护肤品</cite>
+            <input type="button" value="-"/>
+            <strong>0</strong>
+            <input type="button" value="+"/>
+            单价:<cite>1元</cite>
+            小计:<cite>0元</cite>
+        </li>
+        <li>
+            商品:<cite>油烟机</cite>
+            <input type="button" value="-"/>
+            <strong>0</strong>
+            <input type="button" value="+"/>
+            单价:<cite>2元</cite>
+            小计:<cite>0元</cite>
+        </li>
+        <li>
+            商品:<cite>洗衣机</cite>
+            <input type="button" value="-"/>
+            <strong>0</strong>
+            <input type="button" value="+"/>
+            单价:<cite>3元</cite>
+            小计:<cite>0元</cite>
+        </li>
+    </ul>
+
+    <p>
+        商品总共:<cite id="returnCite">0元</cite>
+    </p>
+</body>
+</html>
