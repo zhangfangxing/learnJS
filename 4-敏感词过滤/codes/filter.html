@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=<device-width>, initial-scale=1.0">
+    <title>敏感字过滤</title>
+    <script>
+        window.onload = function(){
+            const reg = /sb|awsl/gi
+            //g 修饰符代表的是 执行全局的匹配
+            //i 修饰符代表的是 大小写不敏感匹配
+
+            var area = document.getElementById("area");
+            var sumbit = document.getElementById("sumbit");
+            var res = document.getElementById("res");
+
+            sumbit.onclick = function(){
+                res.innerHTML = area.value.replace(reg,"*");
+            }
+        }
+    </script>
+</head>
+<body>
+    <h2>敏感字过滤</h2>
+
+    <p>
+        <textarea id="area" cols="30" rows="10"></textarea>
+    </p>
+
+    <p>
+        <button id="sumbit">发布</button>
+    </p>
+    <p id="res"></p>
+</body>
+</html>
