@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .progressBar{
+            width: 400px;
+            background-color: red;
+            border-width: 2px;
+            border-style: solid;
+            border-color: blue;
+        }
+        .progressBar .progress{
+            height: 40px;
+            line-height: 40px;
+            width: 0px;
+            background-color: yellow;
+        }
+        .install{
+            margin-top: 25px;
+        }
+    </style>
+    <script>
+        window.onload = function(){
+            const install = document.querySelector(".install");
+            const reset = document.querySelector(".reset");
+            const progress = document.querySelector(".progress");
+            const cnt = document.querySelector(".cnt");
+            let timer = null;
+
+
+            install.onclick = function(){
+                let num = 0;
+                
+                if(timer === null){
+                    timer = setInterval(()=>{
+                        num += Math.floor(Math.random() * 30 +5);
+                        if(num >= 400){
+                            clearInterval(timer);
+                            timer = null;
+                            num = 400;
+                        }
+                        progress.style.width = num + 'px';
+                        cnt.innerHTML = num/4;
+                    },500)
+                }
+            }
+
+            reset.onclick = function(){
+                clearInterval(timer);
+                timer = null;
+                progress.style.width = 0;
+                cnt.innerHTML = 0;
+            }
+        }
+    </script>
+</head>
+<body>
+    <div class="progressBar">
+        <div class="progress">
+            <span class="cnt">0</span><span>%</span>
+        </div>
+    </div>
+    <button class="install">安装</button>
+    <button class="reset">重置</button>
+</body>
+</html>
