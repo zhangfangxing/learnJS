@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>scrollBy</title>
+    <style>
+        .test{
+            height: 1300px;
+            width: 300px;
+            border-width: 2px;
+            border-style: solid;
+            border-color: red;
+        }
+        .aClass{
+            position:fixed;
+            right:0;
+            bottom:0;
+        }
+    </style>
+    <script>
+        window.onload = function(){
+            document.getElementById('btn').onclick = function(){
+                //console.log(document.documentElement);
+                //console.log(document.documentElement.scrollTop);
+                scrollBy(0,-document.documentElement.scrollTop);
+            }
+        }
+    </script>
+</head>
+<body>
+    <div class="test">1</div>
+    <div class="test">2</div>
+    <div class="test">3</div>
+    <div class="test">4</div>
+    <button id="btn" class="aClass">回到顶部</button>
+    </body>
+</html>
