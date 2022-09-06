@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        ul li{
+            display: inline-block;
+        }
+        .liclass1{
+            /* 左半边未选中 */
+            width: 14px;
+            height: 28px;
+            float:left;
+            caret-color: transparent;
+            background: url(../imgs/star.gif) no-repeat 0px 0px;
+            list-style: none;
+        }
+        .liclass2{
+             /* 右半边未选中 */
+            width: 14px;
+            height: 28px;
+            float:left;
+            caret-color: transparent;
+            background: url(../imgs/star.gif) no-repeat -14px 0px;
+            list-style: none;
+        }
+        .liclass3{
+            /* 左半边选中 */
+            width: 14px;
+            height: 28px;
+            float:left;
+            caret-color: transparent;
+            background: url(../imgs/star.gif) no-repeat 0px -28px;
+            list-style: none;
+        }
+        .liclass4{
+            /* 右半边选中 */
+            width: 14px;
+            height: 28px;
+            float:left;
+            caret-color: transparent;
+            background: url(../imgs/star.gif) no-repeat -14px -28px;
+            list-style: none;
+        }
+    </style>
+
+    <!-- 1. 小点没去掉 -->
+    <!-- 2. li不是一行 -->
+    <!-- 3. 小星星被分割开了，取消图片和图片之中的空隙 -->
+    <!-- 4. 有个光标一直在闪。 -->
+    <script>
+        window.onload = function(){
+            var ulclass = document.querySelector(".ulclass");
+            var lis = ulclass.getElementsByTagName("li");
+
+            
+            for(var i=0;i<lis.length;i++){
+                //初始化样式
+                if(i%2==0){
+                    lis[i].className = "liclass1";
+                } else {
+                    lis[i].className = "liclass2";
+                }
+
+                //鼠标悬浮事件
+                lis[i].onmouseover = function(){
+                    // console.log(this.id);
+                    for(var j=0;j<=Number(this.id);j++){
+                        if(j%2==0){
+                            lis[j].className="liclass3";
+                        } else {
+                            lis[j].className="liclass4";
+                        }
+                    }
+                }
+
+                //鼠标移除的事件
+                lis[i].onmouseout = function(){
+                    for(var j=0;j<lis.length;j++){
+                        if(j%2==0){
+                            lis[j].className="liclass1";
+                        } else {
+                            lis[j].className="liclass2";
+                        }
+                    }
+                }
+
+                //鼠标点击的事件
+                //1. 鼠标点击之后，不再更换样式，
+                //2. 并且提示得了几分
+                lis[i].onclick = function(){
+                    for(var j=0;j<lis.length;j++){
+                        lis[j].onmouseover = null;//悬停的时候不再有操作
+                        lis[j].onmouseout = null;//移除的时候也不再有操作了
+                        lis[j].onclick = null;//不允许提交第二次了。
+                    }
+                    alert("总分为："+(Number(this.id)+1)/2 +"分");
+                }
+            }
+
+            
+
+        }
+    </script>
+</head>
+<body>
+    <div id="div_star">
+        <ul class="ulclass">
+            <li id="0"></li>
+            <li id="1"></li>
+            <li id="2"></li>
+            <li id="3"></li>
+            <li id="4"></li>
+            <li id="5"></li>
+            <li id="6"></li>
+            <li id="7"></li>
+            <li id="8"></li>
+            <li id="9"></li>
+        </ul>
+    </div>
+</body>
+</html>
