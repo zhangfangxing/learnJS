@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            margin: 0;
+            caret-color: transparent;
+            /* 取消光标 */
+            user-select: none;
+            /* p标签文本不允许被选择 */
+        }
+        .carousel-container{
+            height: 500px;
+            width: 800px;
+            border: 10px solid grey;
+            margin-top: 100px;
+            margin-left: 50px;
+            /* background-image: url(../imgs/1.jpg); */
+        }
+        .carousel-left{
+            position:absolute;
+            height: 100px;
+            width: 30px;
+            border: 1px solid grey;
+            margin-top:200px;
+            background-color: greenyellow;
+        }
+        .carousel-right{
+            position:absolute;
+            /* 根据父容器固定定位 */
+            height: 100px;
+            /* 本高100px */
+            width: 30px;
+            /* 本宽30px */
+            border: 1px solid grey;
+            /* 外框线 */
+            margin-top:200px;
+            /* 自身头顶的外框线针对父容器200px距离 这个200 是根据父容器 height: 500px; 和自身容器height:100px;计算得出的  公式是 ((500px/2)-(100px/2)) */
+            margin-left: 770px;
+            /* 自身左侧的外框线针对父容器770px距离 这个770 是根据父容器 width: 800px; 和自身容器 width: 30px;计算得出的 公式是 800px-30px */
+            background-color: greenyellow;
+        }
+        p{
+            position:absolute;
+            font-size: 30px;
+            margin-top:25px;
+        }
+        [class^="carousel-number"]{
+            position:absolute;
+            height: 25px;
+            width: 25px;
+            border-radius:100%;
+            border: 1px solid red;
+            margin-top: 430px;
+            background-color: greenyellow;
+        }
+        .carousel-number0{margin-left: 300px;}
+        .carousel-number1{margin-left: 350px;}
+        .carousel-number2{margin-left: 400px;}
+        .carousel-number3{margin-left: 450px;}
+    </style>
+    <script type="text/javascript">
+        //0. 初始化内存资源
+        var imgs = ["../imgs/1.jpg","../imgs/2.jpeg","../imgs/3.jpg","../imgs/4.jpeg"];
+
+        window.onload = function(){
+            //1. 初始化第一张轮播图
+            var carouselContainer = document.querySelector(".carousel-container");
+            carouselContainer.style.backgroundImage="url("+imgs[0]+")";
+            carouselContainer.setAttribute("imgNum",0);
+            
+            //2. 将第一个小绿点变黑
+            var number0 = document.querySelector(".carousel-number0");
+            number0.style.backgroundColor="black";
+
+            //3. 任务调度 每秒更换图片
+            setInterval(changeImgs,5000);
+
+            //4. 左右图标 绑定监听事件
+            var left = document.querySelector(".carousel-left");
+            left.addEventListener('click', function (evt) {
+                changeImgs("left");
+            });
+            var right = document.querySelector(".carousel-right");
+            // right.addEventListener('click', function (evt) {
+            //     changeImgs("right");
+            // });
+            right.onclick = function(){
+                changeImgs("right");
+            }
+
+            //5. 给下标设置
+            var numbers = document.getElementById("carousel-numbers").getElementsByTagName("div");
+            for(var i=0;i<numbers.length;i++){
+                //这里用闭包进行处理
+                //如果不用闭包的话，这里的i 永远等于length。即永远等于4。
+                (function (i) {
+                    numbers[i].onclick = function () {
+                        changeImgs(i);
+                    };
+                })(i);
+            }
+        }
+        function changeImgs(val){
+            var carouselContainer = document.querySelector(".carousel-container");
+            var imgNum_old = carouselContainer.getAttribute("imgNum");
+            if(val===undefined){
+                imgNum_new = Number(imgNum_old)+1;
+                if(imgNum_new>3){
+                    imgNum_new=0;
+                }
+            } else if(val === "left"){
+                imgNum_new = Number(imgNum_old)-1;
+                if(imgNum_new<0){
+                    imgNum_new=3;
+                }
+            } else if(val === "right"){
+                imgNum_new = Number(imgNum_old)+1;
+                if(imgNum_new>3){
+                    imgNum_new=0;
+                }
+            } else if(val === 0){
+                imgNum_new=0;
+            } else if(val === 1){
+                imgNum_new=1;
+            } else if(val === 2){
+                imgNum_new=2;
+            } else if(val === 3){
+                imgNum_new=3;
+            }
+            carouselContainer.style.backgroundImage="url("+imgs[imgNum_new]+")";
+            carouselContainer.setAttribute("imgNum",imgNum_new);
+            var numbers = document.getElementById("carousel-numbers").getElementsByTagName("div");
+            numbers[imgNum_old].style.backgroundColor="greenyellow";
+            numbers[imgNum_new].style.backgroundColor="black";
+        }
+    </script>
+</head>
+<body>
+    <div class="carousel-container">
+        <div class="carousel-left">
+            <p>&lt;</p>
+        </div>
+        <div class="carousel-right">
+            <p>&gt;</p>
+        </div>
+        <div id="carousel-numbers">
+            <div class="carousel-number0"></div>
+            <div class="carousel-number1"></div>
+            <div class="carousel-number2"></div>
+            <div class="carousel-number3"></div>
+        </div>
+    </div>
+</body>
+</html>
