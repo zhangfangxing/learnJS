@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>bilibili 弹幕</title>
+    <style>
+        #myDiv {
+            /* absolute 是绝对定位 */
+            /* 绝对定位的特性是 从文档流中脱离，不受其他元素的影响。 */
+            /* 如果是相对定位的话，可能受到其他元素的影响，无法正常进行滚动 */
+            position: absolute;
+            width: 500px;
+            height: 50px;
+            top: 200px;
+            font-size: 50px;
+        }
+    </style>
+    <script>
+        window.onload = function (){
+            var myDiv = document.getElementById("myDiv");
+            
+            // 设置myDiv的起始位置
+            myDiv.style.right = '-400px';
+
+            // 调用定时任务
+            moveRight();
+        }
+        
+        function moveRight(){
+
+            // console.log(window.screen.width);
+            // 输出1800 为整个屏幕的宽
+
+            if(parseInt(myDiv.style.right) > (screen.width)){//如果到了屏幕最左面，就让他回到最右面。
+                myDiv.style.right = 0;
+            }
+
+
+            myDiv.style.right = parseInt(myDiv.style.right) + 3 + 'px';
+
+            // 这里的50，指50毫秒
+            // 每次moveRight()函数执行之后50毫秒重新执行moveRight()函数
+            // setTimeout为全局设置。
+            setTimeout("moveRight()",50);
+            // setInterval 和 setTimeout的区别
+            // setInterval是每隔多少毫秒执行一次
+            // setTimeout是执行完多少毫秒执行一次
+        }
+        
+    </script>
+</head>
+<body>
+    <div id="myDiv">欢迎加入前端QQ群235419843</div>
+</body>
+</html>
