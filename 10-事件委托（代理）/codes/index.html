@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>事件委托</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        #myDiv{
+            width: 200px;
+            height: 200px;
+            background: black;
+            float: left;
+            margin: 10px;
+        }
+        #myDiv2{
+            width: 200px;
+            height: 200px;
+            background: black;
+            float: left;
+            margin: 10px;
+        }
+    </style>
+    <script>
+        window.onload = function(){
+            // console.log('e',e);//window.event
+            // console.log('window.event',window.event);
+
+            document.onclick = function(e){
+                // console.log('e',e);//PointerEvent 是window.event的一个子集 一个实现类。这样理解。
+                // console.log('window.event',window.event);
+                var ev = e || event;
+                var iTarget = ev.target;
+                // event.target属性专门用于实现事件委托。
+                // iTarget.className ==
+                if(iTarget.id == 'myDiv'){
+                    iTarget.style.background = 'red';
+                }//不需要去遍历document了
+            }
+        }
+    </script>
+</head>
+<body>
+    <div id="myDiv"></div>
+</body>
+</html>
